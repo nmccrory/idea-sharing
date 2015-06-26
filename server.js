@@ -29,6 +29,10 @@ var ideaSchema = new mongoose.Schema({
 	created_at: Date
 })
 
+ideaSchema.path('name').validate(function(v){return v.length > 4;}, 'Name must be at least 4 characters in length');
+ideaSchema.path('name').required(true, 'Name field required');
+ideaSchema.path('post').required(true, 'Project idea required!');
+
 var Idea = mongoose.model('Idea', ideaSchema);
 
 app.get('/', function(req, res){
@@ -46,7 +50,9 @@ app.post('/add', function(req, res){
 	var idea = new Idea({name: req.body.name, post: req.body.idea, comments: [], created_at: now});
 	idea.save(function(err){
 		if(err){
+			console.log(idea.errors);
 			console.log('Unable to add post');
+			res.redirect('/');
 		}else{
 			res.redirect('/');
 		}

@@ -20,6 +20,11 @@
 			<div class="container">
 			<div class="row" >
 				<div class="col s10">
+					 <% if(typeof(errors) != 'undefined' ) { %>
+					     <% for (var x in errors) { %>
+					      <h3><%= errors[x].message %></h3>
+					     <% } %>
+					 <% } %>
 					<form action="/add" method='post'>
 						<div class="section">
 							<div class="section">
@@ -45,7 +50,7 @@
 			<div class="row">
 				<% for(x in ideas){ %>
 					<div class="row">
-						<div class="col s12">
+						<div class="col s12" id='message'>
 							<h4><%=ideas[x].name%></h4>
 							<p><%=ideas[x].post%></p>
 						</div>
@@ -56,8 +61,8 @@
 					 %>
 					 <% console.log(ideas[x].comments[i])%>
 					<div class="row">
-						<div class="col s10 offset-s2">
-							<h6><%=ideas[x].comments[i].name%></h6>
+						<div class="col s10 offset-s2" id='comment'>
+							<h6><b><%=ideas[x].comments[i].name%></b></h6>
 							<p><%=ideas[x].comments[i].body%></p>
 						</div>
 					</div>
@@ -67,11 +72,16 @@
 					<div class="row">
 						<div class="col s10 offset-s2">
 							<form action="/comment" method='post'>
-								Name:
-								<input type="text" name='name'>
-								<input type="text" name='comment'>
-								<input type="hidden" name='id' value=<%=ideas[x]._id%>>
-								<button type='submit'>Comment</button>
+								<div class="col s6 offset-s6">
+									Name:
+									<input type="text" name='name'>
+								</div>
+								<div class="col s10 offset-s2">
+									Comment:
+									<input type="text" name='comment'>
+									<input type="hidden" name='id' value=<%=ideas[x]._id%>>
+									<button type='submit'>Comment</button>
+								</div>
 							</form>
 						</div>
 					</div>
