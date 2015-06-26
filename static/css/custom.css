@@ -1,0 +1,19 @@
+#bulk{
+	background-image: url('/images/lightbackground.jpg');
+	color: #424242;
+}
+#share{
+	background-color: transparent;
+	border: 3px solid #424242;
+	color: #424242;
+	font-family: sans-serif;
+	font-weight: 300;
+	padding: 5px;
+}
+#header{
+	background-image: url('/images/purple.jpg');
+	margin:0;
+}
+h5{
+	margin:0;
+}

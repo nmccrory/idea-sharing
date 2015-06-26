@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>Projects Board</title>
+		<link rel="stylesheet" href="/css/materialize.css">
+		<link rel="stylesheet" href="/css/custom.css">
+	</head>
+	<body>
+		<div class="row" id='header'>
+			<div class="container">
+				<div class="row">
+					<div class="col s12">
+						<div class="section">
+							<h3>The Projects Dashboard</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id='bulk'>
+			<div class="container">
+			<div class="row" >
+				<div class="col s10">
+					<form action="/add" method='post'>
+						<div class="section">
+							<div class="section">
+								<h5>Your Name:</h5>	
+							</div>
+						</div>
+						<div class="input-field">
+							<input type="text" name='name'>
+						</div>
+						<h5>Project Idea:</h5>
+						<div class="input-field">
+							<textarea name="idea" class='materialize-textarea'></textarea>
+						</div>
+						<div class="section">
+							<button type='submit' id='share'>Share idea</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<% for(x in ideas){ %>
+					<div class="row">
+						<div class="col s12">
+							<h4><%=ideas[x].name%></h4>
+							<p><%=ideas[x].post%></p>
+						</div>
+					</div>
+					<% if(ideas[x].comments.length > 1){
+
+					for(var i=1; i<ideas[x].comments.length;i++){
+					 %>
+					 <% console.log(ideas[x].comments[i])%>
+					<div class="row">
+						<div class="col s10 offset-s2">
+							<h6><%=ideas[x].comments[i].name%></h6>
+							<p><%=ideas[x].comments[i].body%></p>
+						</div>
+					</div>
+					<% } %>
+					<% } %>
+
+					<div class="row">
+						<div class="col s10 offset-s2">
+							<form action="/comment" method='post'>
+								Name:
+								<input type="text" name='name'>
+								<input type="text" name='comment'>
+								<input type="hidden" name='id' value=<%=ideas[x]._id%>>
+								<button type='submit'>Comment</button>
+							</form>
+						</div>
+					</div>
+				<% } %>
+			</div>
+		</div>
+	</body>
+</html>
